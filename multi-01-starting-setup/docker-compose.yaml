@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  mongodb:
+    image: 'mongo'
+#    container_name: mongodb
+    volumes:
+    - data:/data/db
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: petr # for key-value pair no dash at the beggining
+#      MONGODB_INITDB_ROOT_PASSWORD: secret
+#      - MONGODB_INITDB_ROOT_USERNAME=petr # for single value
+    env_file:
+      - ./env/mongo.env
+#    networks: # if I want to explicitly specify network, but it's not necessary
+#      - goals-net
+  backend:
+    build: ./backend
+#    build:
+#      context: ./backend
+#      dockerfile: Dockerfile # default
+#        args: ...
+    ports:
+    - '3001:80'
+    volumes:
+    - logs:/app/logs
+    - /app/node_modules
+    - ./backend:/app # relative path from yaml path can be used
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+  frontend:
+    build: ./frontend
+    ports:
+    - 3000:3000
+    volumes:
+    - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+volumes: # named volumes needs to be specified here
+  data:
+  logs:
