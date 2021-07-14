@@ -1,0 +1,22 @@
+process:
+kubectl help
+kubectl create deployment first-app --image=
+docker tag kub-first-app ankhtepot/kub-first-app
+docker push ankhtepot/kub-first-app
+kubectl create deployment first-app --image=ankhtepot/kub-first-app
+kubectl get pods
+kubectl get deployments
+kubectl get pods
+minikube dashboard
+doskey /history
+
+minikube run:
+cubectl expose deployment first-app --type=LoadBalancer --port=8080
+kubectl expose deployment first-app --type=LoadBalancer --port=8080
+kubectl get services
+minikube service first-app
+doskey /history
+
+general:
+kubectl get pods
+doskey /history
