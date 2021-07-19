@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: second-app
+  ports:
+    - protocol: 'TCP'
+      port: 81
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: second-app
+  template: # always is pod so no need for "kind:"
+    metadata:
+      labels:
+        app: second-app # optional form of both name (app) and value (second-app)
+    spec:
+      containers:
+        - name: second-node
+          image: ankhtepot/kub-first-app:2
+
+
