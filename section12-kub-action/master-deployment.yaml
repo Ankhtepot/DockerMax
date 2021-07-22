@@ -19,8 +19,14 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      app: second-app
+#    matchLabels:
+#      app: second-app
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - second-app
+          - first-app
   template: # always is pod so no need for "kind:"
     metadata:
       labels:

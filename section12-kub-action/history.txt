@@ -11,6 +11,7 @@ minikube dashboard
 doskey /history
 
 minikube run:
+minikube start
 kubectl expose deployment first-app --type=LoadBalancer --port=8080
 kubectl get services
 minikube service first-app

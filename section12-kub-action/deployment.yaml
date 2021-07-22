@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: second-app-deployment
+  labels:
+    group: example
 spec:
   replicas: 1
   selector:
@@ -14,4 +16,11 @@ spec:
     spec:
       containers:
         - name: second-node
-          image: ankhtepot/kub-first-app:2
+          image: ankhtepot/kub-first-app:latest # or :latest or next line
+          imagePullPolicy: Always # : Never
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 3
+            initialDelaySeconds: 5
