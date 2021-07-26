@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: story-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: story
@@ -14,4 +14,15 @@ spec:
     spec:
       containers:
         - name: story
-          image: ankhtepot/kub-data-demo:1
+          image: ankhtepot/kub-data-demo:latest
+          imagePullPolicy: Always
+          env:
+            - name: STORY_FOLDER
+              value: 'story'
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+      volumes:
+        - name: story-volume
+          persistentVolumeClaim:
+            claimName: host-pvc
