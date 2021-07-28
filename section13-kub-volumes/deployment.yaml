@@ -18,7 +18,11 @@ spec:
           imagePullPolicy: Always
           env:
             - name: STORY_FOLDER
-              value: 'story'
+#              value: 'story'   # hardcoded variant
+              valueFrom:
+                configMapKeyRef:
+                  key: folder
+                  name: data-store-env
           volumeMounts:
             - mountPath: /app/story
               name: story-volume
