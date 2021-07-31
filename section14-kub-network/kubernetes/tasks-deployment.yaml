@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks
+  template:
+    metadata:
+      labels:
+        app: tasks
+    spec:
+      containers:
+        - name: tasks
+          imagePullPolicy: Always
+          image: ankhtepot/kub-demo-tasks:3
+          env:
+            - name: AUTH_ADRESS
+              #              value: "10.106.94.166"
+              value: "auth-service.default"
+            - name: TASKS_FOLDER
+              value: tasks

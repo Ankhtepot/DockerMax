@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: users-deployment
+  name: fe-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: users
+      app: fe
   template:
     metadata:
       labels:
-        app: users
+        app: fe
     spec:
       containers:
-        - name: users
+        - name: fe
           imagePullPolicy: Always
-          image: ankhtepot/kub-demo-users:latest
+          image: ankhtepot/kub-demo-fe:4
           env:
             - name: AUTH_ADRESS
-#              value: "10.106.94.166"
+              #              value: "10.106.94.166"
               value: "auth-service.default"
